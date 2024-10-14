@@ -37,5 +37,31 @@ function getBooksWithAuthors() {
         };
     });
 }
+async function createAuthor(name, bio, birthDate, nationality) {
+    const author = new Author({
+        name,
+        bio,
+        birthDate,
+        nationality,
+    });
+    await author.save();
+    return author;
+}
+
+async function createBook(title, publicationDate, genre, authorId) {
+    const book = new Book({
+        title,
+        publicationDate,
+        genre,
+        author: authorId,
+    });
+    await book.save();
+    return book;
+}
+async function getBooksWithAuthors() {
+    const books = await Book.find().populate('author');
+    return books;
+}
+
 
 
